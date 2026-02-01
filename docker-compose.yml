@@ -46,7 +46,7 @@ services:
 
   web:
     build: .
-    image: docker.io/junzki/byk-server:latest
+    image: registry.digitalocean.com/lgtkom/byk-server:latest
     ports:
       - "8000:8000"
     depends_on:
@@ -55,7 +55,7 @@ services:
     <<: *shared-environment
 
   tasks:
-    image: docker.io/junzki/byk-server:latest
+    image: registry.digitalocean.com/lgtkom/byk-server:latest
     command:
       - faststream
       - run

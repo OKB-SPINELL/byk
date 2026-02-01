@@ -1,5 +1,8 @@
 # byk (Book)
 
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Junzki/byk?utm_source=oss&utm_medium=github&utm_campaign=Junzki%2Fbyk&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FJunzki%2Fbyk.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2FJunzki%2Fbyk?ref=badge_small)
+
 A simple book manager.
 
 ## Usage
