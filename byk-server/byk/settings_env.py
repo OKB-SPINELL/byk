@@ -15,11 +15,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
 
 # SECURITY WARNING: PLEASE MAKE SURE TO SET A DIFFERENT POSTGRESQL_PASSWORD FOR PRODUCTION USE!
 #                   DO NOT USE THE DEFAULT PASSWORD IN PRODUCTION ENVIRONMENTS!
-POSTGRESQL_HOST = os.getenv('POSTGRESQL_HOST', 'localhost')
-POSTGRESQL_PORT = os.getenv('POSTGRESQL_PORT', '5432')
-POSTGRESQL_NAME = os.getenv('POSTGRESQL_DB', 'byk-server')
-POSTGRESQL_USER = os.getenv('POSTGRESQL_USER', 'byk_user')
-POSTGRESQL_PASSWORD = os.getenv('POSTGRESQL_PASSWORD', 'byk_password')
+POSTGRESQL_HOST = os.getenv('POSTGRES_HOST', 'localhost')
+POSTGRESQL_PORT = os.getenv('POSTGRES_PORT', '5432')
+POSTGRESQL_NAME = os.getenv('POSTGRES_DB', 'byk-server')
+POSTGRESQL_USER = os.getenv('POSTGRES_USER', 'byk_user')
+POSTGRESQL_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'byk_password')
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
 
