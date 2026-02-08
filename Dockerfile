@@ -8,7 +8,7 @@ ENV PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
 
 RUN python -m pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
-    pip install --no-cache-dir hypercorn
+    pip install --no-cache-dir gunicorn
 
 RUN addgroup -S app && adduser -S app -G app && \
     chown -R app:app /app
@@ -23,4 +23,3 @@ ENV DEBUG=false
 ENV DJANGO_SETTINGS_MODULE=byk.settings_env
 
 EXPOSE 8000
-CMD ["hypercorn", "byk.asgi:application", "--bind", "0.0.0.0:8000"]
