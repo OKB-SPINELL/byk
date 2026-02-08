@@ -52,6 +52,7 @@ class Book(models.Model):
     tags = models.JSONField(default=list, blank=True)
 
     comments = models.TextField(blank=True, null=True)
+    tracking_number = models.CharField(max_length=100, blank=True, null=True, default=None)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

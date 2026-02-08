@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'byk.apps.RootConfig',
-    'daphne',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',

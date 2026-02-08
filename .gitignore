@@ -102,6 +102,9 @@ poetry.lock
 *.sublime-project
 *.sublime-workspace
 
+# Local dev
+settings_local.py
+
 # macOS
 .DS_Store
 .AppleDouble

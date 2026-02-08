@@ -65,6 +65,11 @@ services:
       - redis
     <<: *shared-environment
 
+  nats-io:
+    image: docker.io/nats:latest
+    ports:
+      - 4222:4222
+
 
 volumes:
   pgdata:
