@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import typing as ty  # noqa: F401
+import uuid
 
-from pydantic import Field, field_validator
 from ninja import ModelSchema, Schema
+from pydantic import Field, field_validator, model_validator
+
 from .models import Book, BookStorage, Tag
 
 
@@ -13,7 +15,6 @@ class TagSchema(ModelSchema):
 
 
 class BookStorageSchema(ModelSchema):
-
     class Meta:
         model = BookStorage
         exclude = ["comments"]
@@ -33,27 +34,38 @@ class BookSchema(ModelSchema):
 
 
 class BookCreateSchema(ModelSchema):
-
     class Meta:
         model = Book
         exclude = ["id", "location"]
 
 
 class BookQuickCreatePostIn(Schema):
+    book_id: ty.Optional[uuid.UUID] = None
     isbn_number: ty.Optional[str] = None
     title: ty.Optional[str] = None
     tracking_number: ty.Optional[str] = None
     overwrite_existing: bool = False
 
-    @field_validator('isbn_number', mode='before')
+    @field_validator("book_id", mode="after")
+    @staticmethod
+    def ensure_book_id(book_id: ty.Optional[uuid.UUID]) -> ty.Optional[uuid.UUID]:
+        if not book_id:
+            return None
+
+        existed = Book.objects.filter(id=book_id).exists()
+        if existed:
+            raise ValueError("Invalid book_id: Book with given ID already exists")
+        return book_id
+
+    @field_validator("isbn_number", mode="before")
     @staticmethod
     def ensure_isbn_number(isbn_number: ty.Optional[str]) -> str | None:
-        """ Add custom validation logic for ISBN-13 number if needed """
+        """Add custom validation logic for ISBN-13 number if needed"""
         if not isbn_number:
             return None
 
         # Normalize: remove hyphens and spaces
-        s = isbn_number.replace('-', '').replace(' ', '')
+        s = isbn_number.replace("-", "").replace(" ", "")
         if not s.isdigit() or len(s) != 13:
             raise ValueError("ISBN-13 must contain 13 digits (hyphens/spaces allowed)")
 
@@ -68,3 +80,9 @@ class BookQuickCreatePostIn(Schema):
             raise ValueError("Invalid ISBN-13 checksum")
 
         return s
+
+    @model_validator(mode="after")
+    def validate_isbn_or_title(self) -> "BookQuickCreatePostIn":
+        if not (self.isbn_number or self.title):
+            raise ValueError("Either ISBN or Title must be provided to create a book.")
+        return self

@@ -11,7 +11,7 @@ x-shared-environment: &shared-environment
     # Change them before deploying to production.
     POSTGRESQL_HOST: postgres
     POSTGRESQL_PORT: 5432
-    POSTGRESQL_DB: byk-server
+    POSTGRESQL_DB: byk
     POSTGRESQL_USER: byk_user
     POSTGRESQL_PASSWORD: byk_password
     REDIS_URL: redis://redis:6379/0
@@ -29,7 +29,7 @@ services:
       # Change them before deploying to production.
       POSTGRES_USER: byk_user
       POSTGRES_PASSWORD: byk_password
-      POSTGRES_DB: byk-server
+      POSTGRES_DB: byk
     ports:
       - "5432:5432"
     volumes:

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import logging
 import typing as ty  # noqa: F401
 
-import logging
-from authlib.jose import jwt, JoseError
-from ninja.security import HttpBearer
+from authlib.jose import JoseError, jwt
 from django.conf import settings
+from ninja.security import HttpBearer
 
 from byk.schemas import NOT_AUTHENTICATED
 
@@ -17,7 +17,9 @@ class TokenAuth(HttpBearer):
             claims = jwt.decode(token, settings.JWT_SECRET_KEY)
             claims.validate()
 
-            uid = claims.get("sub")  # may be an Auth0 user id - shall be injected to Django Admin's user model
+            uid = claims.get(
+                "sub"
+            )  # may be an Auth0 user id - shall be injected to Django Admin's user model
             if not uid:
                 return None
 
@@ -31,8 +33,8 @@ token_auth = TokenAuth()
 
 def on_invalid_token(apis):
     def _wrap(request, exc):
-        return apis.create_response(request, {
-            "message": str(exc),
-            "error_code": NOT_AUTHENTICATED
-        }, status=401)
+        return apis.create_response(
+            request, {"message": str(exc), "error_code": NOT_AUTHENTICATED}, status=401
+        )
+
     return _wrap
